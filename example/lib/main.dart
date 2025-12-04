@@ -8,6 +8,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
 
+  const WindowOptions windowOptions = WindowOptions(
+    size: Size(1200, 760),
+    minimumSize: Size(960, 600),
+    center: true,
+    title: 'Local Notifier 示例',
+  );
+  await windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
   await localNotifier.setup(
     appName: 'local_notifier_example',
     shortcutPolicy: ShortcutPolicy.requireCreate,
@@ -31,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: const Color(0xff416ff4),
         canvasColor: Colors.white,
         scaffoldBackgroundColor: const Color(0xffF7F9FB),
-        dividerColor: Colors.grey.withOpacity(0.3),
+        dividerColor: Colors.grey.withValues(alpha: 0.3),
       ),
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
